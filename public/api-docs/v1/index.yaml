@@ -1,0 +1,49 @@
+openapi: 3.0.0
+info:
+  title: Users service
+  contact:
+    name: API Support
+    url: https://vokrug.city
+    email: bolshe.kivi@gmail.com
+  version: 1.0.0
+  description: API for managing users and their profiles
+servers:
+    - url: /api/v1
+tags:
+  - name: users
+    description: Users management
+paths:
+  /users/users:
+    $ref: './users/paths.yaml#/UsersOne'
+
+components:
+  schemas:
+    EmptyDataResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          nullable: true
+        meta:
+          type: object
+      required:
+        - data
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: './errors.yaml#/ErrorResponse'
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: './errors.yaml#/ErrorResponse'
+    ServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: './errors.yaml#/ErrorResponse'

@@ -1,0 +1,151 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Users service",
+    "contact": {
+      "name": "API Support",
+      "url": "https://vokrug.city",
+      "email": "bolshe.kivi@gmail.com"
+    },
+    "version": "1.0.0",
+    "description": "API for managing users and their profiles"
+  },
+  "servers": [
+    {
+      "url": "/api/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "users",
+      "description": "Users management"
+    }
+  ],
+  "paths": {
+    "/users/users": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "operationId": "getUser",
+        "x-lg-handler": "App\\Http\\ApiV1\\Modules\\Users\\Controllers\\UsersController@getOne",
+        "summary": "Get users",
+        "parameters": {
+          "schema": {
+            "type": "string"
+          },
+          "description": "ID of the user to retrieve"
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmptyDataResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "EmptyDataResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "nullable": true
+          },
+          "meta": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "data"
+        ]
+      }
+    },
+    "responses": {
+      "BadRequest": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/responses/NotFound/content/application~1json/schema"
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "Not Found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "nullable": true
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      },
+                      "meta": {
+                        "x-skip-response-validation": true,
+                        "type": "object",
+                        "description": "Object with meta-information"
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "message"
+                    ]
+                  }
+                },
+                "meta": {
+                  "type": "object",
+                  "description": "Object with meta-information"
+                }
+              },
+              "required": [
+                "data",
+                "errors"
+              ]
+            }
+          }
+        }
+      },
+      "ServerError": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/responses/NotFound/content/application~1json/schema"
+            }
+          }
+        }
+      }
+    }
+  }
+}

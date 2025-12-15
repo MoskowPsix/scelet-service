@@ -1,0 +1,24 @@
+UsersOne:
+  get:
+    tags:
+      - users
+    operationId: getUser
+    x-lg-handler: 'App\Http\ApiV1\Modules\Users\Controllers\UsersController@getOne'
+    summary: Get users
+    parameters:
+        schema:
+          type: string
+        description: ID of the user to retrieve
+    responses:
+      "200":
+        description: Success
+        content:
+          application/json:
+            schema:
+              $ref: '../index.yaml#/components/schemas/EmptyDataResponse'
+      "400":
+        $ref: '../index.yaml#/components/responses/BadRequest'
+      "404":
+        $ref: '../index.yaml#/components/responses/NotFound'
+      "500":
+        $ref: '../index.yaml#/components/responses/ServerError'

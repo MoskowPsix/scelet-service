@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "scripts": {
+        "spectral": "npx @stoplight/spectral-cli lint ./public/api-docs/**/index.yaml -f stylish",
+        "swagger:bundle": "swagger-cli bundle ./public/api-docs/v1/index.yaml -o ./public/api-docs/v1/index.json -t json && (test -f ./public/api-docs/v2/index.yaml && swagger-cli bundle ./public/api-docs/v2/index.yaml -o ./public/api-docs/v2/index.json -t json || true)",
+        "swagger:bundle:watch": "chokidar './public/api-docs/**/*.yaml' -c 'npm run swagger:bundle'"
+    },
+    "devDependencies": {
+        "@apidevtools/swagger-cli": "^4.0.4",
+        "@openapitools/openapi-generator-cli": "^2.1.15",
+        "@stoplight/spectral-cli": "^6.6.0",
+        "chokidar": "^3.5.3",
+        "chokidar-cli": "^3.0.0"
+    }
+}

@@ -1,0 +1,81 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Pay Service API",
+    "contact": {
+      "name": "API Support",
+      "url": "https://vokrug.city",
+      "email": "bolshe.kivi@gmail.com"
+    },
+    "version": "2.0.0",
+    "description": "API v2 for payment service"
+  },
+  "servers": [
+    {
+      "url": "/api/v2"
+    }
+  ],
+  "tags": [
+    {
+      "name": "payments",
+      "description": "Payment operations"
+    }
+  ],
+  "paths": {
+    "/payments": {
+      "get": {
+        "tags": [
+          "payments"
+        ],
+        "summary": "Get payments list",
+        "operationId": "getPayments",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "meta": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PaymentResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "amount",
+          "status"
+        ]
+      }
+    }
+  }
+}
